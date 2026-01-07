@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from cortexpanels.site/Elite/14.html by HTTrack Website Copier/3.x [XR&CO'2017], Tue, 06 Jan 2026 20:47:44 GMT -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEW YEAR Chicken Road Predictor</title>
+    <link rel="stylesheet" href="../../cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="../../external.html?link=https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;family=Orbitron:wght@500;700&amp;family=Share+Tech+Mono&amp;display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --diwali-gold: #ffb347;
+            --diwali-orange: #ff6b35;
+            --diwali-red: #c44569;
+            --diwali-green: #2ecc71;
+            --diwali-blue: #3498db;
+            --diwali-purple: #9b59b6;
+            --diwali-yellow: #f1c40f;
+            --dark: #2a2d3e;
+            --light: #f9f9ff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Diwali Background Effects */
+        .diwali-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.1;
+        }
+
+        .firework {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            box-shadow: 0 0 8px 2px var(--diwali-gold);
+            animation: firework-explode 3s ease-out infinite;
+        }
+
+        @keyframes firework-explode {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 1;
+            }
+            50% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(0) scale(1);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Game Selector Styles */
+        .game-selector-container {
+            width: 100%;
+            max-width: 450px;
+            margin: 0 auto 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .game-selector-btn {
+            width: 100%;
+            padding: 12px 15px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--diwali-gold);
+            border-radius: 12px;
+            color: white;
+            font-size: 14px;
+            outline: none;
+            cursor: pointer;
+            box-shadow: 0 0 15px rgba(255, 179, 71, 0.3);
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .game-selector-btn:hover {
+            box-shadow: 0 0 20px rgba(255, 179, 71, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .game-selector-btn .selected-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .game-selector-btn .selected-option img {
+            width: 20px;
+            height: 20px;
+            object-fit: contain;
+        }
+
+        .game-selector-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            max-height: 300px;
+            overflow-y: auto;
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--diwali-gold);
+            border-radius: 12px;
+            margin-top: 5px;
+            z-index: 100;
+            display: none;
+            box-shadow: 0 0 20px rgba(255, 179, 71, 0.3);
+        }
+
+        .game-selector-dropdown.show {
+            display: block;
+        }
+
+        .game-selector-search {
+            padding: 10px;
+            position: sticky;
+            top: 0;
+            background: rgba(26, 26, 46, 0.95);
+            z-index: 1;
+        }
+
+        .game-selector-search input {
+            width: 100%;
+            padding: 8px 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--diwali-gold);
+            border-radius: 8px;
+            color: white;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .game-selector-search input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .game-selector-options {
+            padding: 5px 0;
+        }
+
+        .game-option {
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: white;
+            position: relative;
+        }
+
+        .game-option:hover {
+            background: rgba(255, 179, 71, 0.2);
+        }
+
+        .game-option img {
+            width: 20px;
+            height: 20px;
+            object-fit: contain;
+        }
+
+        .game-option.active {
+            background: var(--diwali-gold);
+            color: var(--dark);
+        }
+
+        .aviator-icon {
+            width: 16px;
+            height: 16px;
+            margin-left: auto;
+            opacity: 0.7;
+        }
+
+        /* Hot tag */
+        .hot-tag {
+            position: absolute;
+            top: -5px;
+            right: 10px;
+            background: linear-gradient(135deg, var(--diwali-orange) 0%, var(--diwali-red) 100%);
+            color: white;
+            font-size: 0.6rem;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-weight: bold;
+            box-shadow: 0 2px 5px rgba(255, 107, 53, 0.4);
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            z-index: 2;
+            animation: pulse 1.5s infinite;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            position: relative;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .logo-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .logo {
+            width: 60px;
+            height: 60px;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.3));
+            animation: float 3s ease-in-out infinite, diwali-glow 2s infinite alternate;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        @keyframes diwali-glow {
+            0% { filter: drop-shadow(0 0 5px var(--diwali-gold)); }
+            100% { filter: drop-shadow(0 0 15px var(--diwali-orange)); }
+        }
+
+        .logo-hot-tag {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: linear-gradient(135deg, var(--diwali-orange) 0%, var(--diwali-red) 100%);
+            color: white;
+            font-size: 0.6rem;
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-weight: bold;
+            box-shadow: 0 2px 8px rgba(255, 107, 53, 0.6);
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            z-index: 2;
+            animation: pulse 1.5s infinite;
+        }
+
+        .title-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--diwali-gold), var(--diwali-orange), var(--diwali-yellow));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px rgba(255, 179, 71, 0.5);
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            color: var(--diwali-yellow);
+            opacity: 0.9;
+            font-size: 0.9rem;
+            font-family: 'Share Tech Mono', monospace;
+            letter-spacing: 1px;
+        }
+
+        /* User Counter */
+        .user-counter {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(5px);
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin: 0 auto 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            animation: fadeIn 0.5s ease-out;
+            font-family: 'Share Tech Mono', monospace;
+            position: relative;
+            overflow: hidden;
+            color: white;
+            justify-content: center;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .user-counter::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 179, 71, 0.2), transparent);
+            animation: scan 3s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .user-counter i {
+            color: var(--diwali-yellow);
+        }
+
+        /* Animation Area */
+        .animation-area {
+            position: relative;
+            width: 100%;
+            height: 220px;
+            margin-bottom: 15px;
+            overflow: hidden;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            position: relative;
+            border: 1px solid rgba(255, 179, 71, 0.3);
+        }
+
+        .animation-area::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--diwali-gold), var(--diwali-orange), var(--diwali-yellow));
+            animation: progress 3s linear infinite;
+        }
+
+        @keyframes progress {
+            0% { width: 0%; left: 0; }
+            50% { width: 100%; left: 0; }
+            100% { width: 0%; left: 100%; }
+        }
+
+        /* Diwali Theme Animation */
+        .diwali-animation {
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            background: 
+                radial-gradient(circle at 30% 30%, rgba(255, 179, 71, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 70% 70%, rgba(255, 107, 53, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 50% 50%, rgba(241, 196, 15, 0.1) 0%, transparent 20%);
+            z-index: 1;
+            animation: rotateRays 20s linear infinite;
+        }
+
+        @keyframes rotateRays {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .plane {
+            position: absolute;
+            bottom: 15px;
+            left: 15px;
+            width: 40px;
+            height: 40px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%23ffb347"><path d="M22 16.21v-1.895L14 8V4a2 2 0 0 0-4 0v4l-8 6.315v1.895l8-2.526V18l-2 2v2l3.5-1 3.5 1v-2l-2-2v-4.316l8 2.526z"/></svg>');
+            background-size: contain;
+            filter: drop-shadow(0 0 8px rgba(255, 179, 71, 0.8));
+            z-index: 10;
+            transform: rotate(45deg);
+        }
+
+        @keyframes planeGlow {
+            0%, 100% { filter: drop-shadow(0 0 8px rgba(255, 179, 71, 0.8)); }
+            50% { filter: drop-shadow(0 0 15px rgba(255, 179, 71, 1)); }
+        }
+
+        /* CENTERED MULTIPLIER DISPLAY */
+        .multiplier-display {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 32px;
+            font-weight: bold;
+            color: white;
+            z-index: 5;
+            background: rgba(26, 26, 46, 0.8);
+            backdrop-filter: blur(5px);
+            padding: 10px 25px;
+            border-radius: 50px;
+            box-shadow: 0 0 25px rgba(255, 179, 71, 0.5);
+            font-family: 'Orbitron', sans-serif;
+            border: 1px solid rgba(255, 179, 71, 0.3);
+        }
+
+        /* Hacker Messages */
+        .hacker-messages {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            padding: 15px 25px;
+            border-radius: 10px;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 14px;
+            color: var(--diwali-green);
+            z-index: 20;
+            display: none;
+            text-align: center;
+            border: 1px solid var(--diwali-green);
+            box-shadow: 0 0 15px rgba(46, 204, 113, 0.3);
+            max-width: 80%;
+        }
+
+        .hacker-messages.show {
+            display: block;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .message-line {
+            margin-bottom: 8px;
+            opacity: 0;
+            animation: typewriter 0.5s forwards;
+        }
+
+        .message-line:nth-child(1) { animation-delay: 0.2s; }
+        .message-line:nth-child(2) { animation-delay: 1s; }
+        .message-line:nth-child(3) { animation-delay: 2s; }
+        .message-line:nth-child(4) { animation-delay: 3s; }
+        .message-line:nth-child(5) { animation-delay: 4s; }
+
+        @keyframes typewriter {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* START BUTTON */
+        .start-button-container {
+            width: 100%;
+            margin: 10px 0;
+        }
+
+        .btn-predict {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, var(--diwali-gold) 0%, var(--diwali-orange) 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(255, 179, 71, 0.4);
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .btn-predict:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 179, 71, 0.6);
+            background: linear-gradient(135deg, var(--diwali-orange) 0%, var(--diwali-gold) 100%);
+        }
+
+        .btn-predict:disabled {
+            background: #666;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        /* WARNING MESSAGE */
+        .warning-box {
+            width: 100%;
+            padding: 15px 20px;
+            margin: 10px 0;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(5px);
+            border-left: 4px solid var(--diwali-yellow);
+            border-radius: 12px;
+            text-align: center;
+            font-size: 13px;
+            color: white;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* ACTION BUTTONS */
+        .action-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .action-btn {
+            padding: 12px 25px;
+            border-radius: 12px;
+            border: none;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            min-width: 180px;
+            font-family: 'Orbitron', sans-serif;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            text-decoration: none;
+        }
+
+        .register-btn {
+            background: linear-gradient(135deg, var(--diwali-gold) 0%, var(--diwali-orange) 100%);
+            position: relative;
+        }
+
+        .telegram-btn {
+            background: linear-gradient(135deg, var(--diwali-blue) 0%, #2980b9 100%);
+        }
+
+        .support-btn {
+            background: linear-gradient(135deg, var(--diwali-green) 0%, #27ae60 100%);
+        }
+
+        .gift-btn {
+            background: linear-gradient(135deg, var(--diwali-purple) 0%, #8e44ad 100%);
+        }
+
+        .action-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        /* Bonus tag styles - Positioned top-right */
+        .bonus-tag {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: linear-gradient(135deg, var(--diwali-orange) 0%, var(--diwali-red) 100%);
+            color: white;
+            font-size: 0.7rem;
+            padding: 3px 10px;
+            border-radius: 15px;
+            font-weight: bold;
+            box-shadow: 0 3px 10px rgba(255, 107, 53, 0.4);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            z-index: 2;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .register-btn-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Reviews Section */
+        .reviews-section {
+            width: 100%;
+            padding: 20px;
+            margin: 20px 0;
+            background: rgba(255,255,255,0.05);
+            backdrop-filter: blur(5px);
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255, 179, 71, 0.2);
+        }
+
+        .reviews-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            color: var(--diwali-yellow);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .review-item {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.9rem;
+            color: white;
+            margin: 10px 0;
+            padding: 8px 15px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 8px;
+            border-left: 3px solid var(--diwali-green);
+        }
+
+        /* Terminal Effect */
+        .terminal-line {
+            position: fixed;
+            bottom: 10px;
+            left: 10px;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 12px;
+            color: var(--diwali-yellow);
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            .header {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .title {
+                font-size: 1.5rem;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .action-btn {
+                width: 100%;
+            }
+            
+            .bonus-tag {
+                right: 0;
+                top: -12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Diwali background effects -->
+    <div class="diwali-background" id="diwaliBackground"></div>
+
+    <div class="container">
+        <!-- Game Selector -->
+        <div class="game-selector-container">
+            <div class="game-selector-btn" id="gameSelectorBtn">
+                <div class="selected-option">
+                    <img src="logo1.png" id="selectedGameLogo" alt="Game Logo">
+                    <span id="selectedGameName">Jalwa Hack</span>
+                </div>
+                <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="game-selector-dropdown" id="gameSelectorDropdown">
+                <div class="game-selector-search">
+                    <input type="text" placeholder="Search games..." id="gameSearch">
+                </div>
+                <div class="game-selector-options" id="gameOptions">
+                    <!-- Options will be added dynamically -->
+                </div>
+            </div>
+        </div>
+
+        <header class="header">
+            <div class="logo-container">
+                <img src="logo1.png" alt="Logo" class="logo" id="gameLogo">
+                <div class="logo-hot-tag" id="logoHotTag">
+                    <i class="fas fa-fire"></i> HOT
+                </div>
+            </div>
+            <div class="title-container">
+                <h1 class="title" id="dynamicGameName">Jalwa HACK</h1>
+                <p class="subtitle" id="gameSubtitle">Jalwa Chicken Road Mod* Earn Daily 💰</p>
+            </div>
+        </header>
+
+        <div class="user-counter">
+            <i class="fas fa-users"></i>
+            <span>ACTIVE_USERS: <span class="count" id="onlineUsers">15,342</span></span>
+        </div>
+
+        <!-- ANIMATION AREA -->
+        <div class="animation-area">
+            <div class="diwali-animation"></div>
+            <div class="multiplier-display" id="multiplierDisplay">1.00x</div>
+            <div class="hacker-messages" id="hackerMessages">
+                <div class="message-line">>_ CONNECTING TO SERVER...</div>
+                <div class="message-line">>_ ANALYZING FLIGHT PATTERNS...</div>
+                <div class="message-line">>_ CALCULATING PROBABILITIES...</div>
+                <div class="message-line">>_ FETCHING RESULTS...</div>
+                <div class="message-line">>_ PREDICTION READY!</div>
+            </div>
+            <div class="plane" id="plane"></div>
+        </div>
+
+        <!-- START BUTTON -->
+        <div class="start-button-container">
+            <button class="btn-predict" id="predictBtn">
+                <i class="fas fa-rocket"></i> START PREDICTION
+            </button>
+        </div>
+
+        <!-- WARNING MESSAGE -->
+        <div class="warning-box">
+            <p class="info-text">
+                >_ NOTE: FOR ACCURATE RESULTS, REGISTER NEW ACCOUNT. OLD ACCOUNTS MAY CAUSE PREDICTION ERRORS.
+                <br>सर्वोत्तम परिणामों के लिए, नया गेम account बनाए । पुराने account में लॉस हो सकता है अथवा समस्याए पैदा हो सकती हैं।
+            </p>
+        </div>
+
+        <!-- ACTION BUTTONS -->
+        <div class="action-buttons">
+            <div class="register-btn-container">
+                <a href="#" id="registerBtn" class="action-btn register-btn">
+                    <i class="fas fa-user-plus"></i> <span id="registerText">REGISTER Jalwa</span>
+                </a>
+                <div class="bonus-tag">
+                    <i class="fas fa-gift"></i> NEW YEAR BONUS
+                </div>
+            </div>
+            <a href="https://t.me/team_hackersz" target="_blank" class="action-btn telegram-btn">
+                <i class="fab fa-telegram"></i> TELEGRAM
+            </a>
+            <a href="https://t.me/teamhackersz_Bot" target="_blank" class="action-btn support-btn">
+                <i class="fas fa-headset"></i> SUPPORT
+            </a>
+            <!-- NEW GIFT CODES BUTTON -->
+            <a href="https://t.me/TradeHelper1" target="_blank" class="action-btn gift-btn">
+                <i class="fas fa-gift"></i> GIFT CODES
+            </a>
+        </div>
+
+        <!-- REVIEWS SECTION -->
+        <div class="reviews-section">
+            <div class="reviews-title">- Reviews -</div>
+            <div id="reviewsContainer">
+                <!-- Reviews will be added dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <div class="terminal-line">>_ SYSTEM_READY_FOR_INPUT</div>
+
+    <script>
+        // Game logos and register links mapping - Updated with exact logo names
+        const gameData = {
+            'Tashan Hack': {
+                logo: 'tashan.png',
+                registerLink: 'https://elite12345ywywywy.github.io/Ok-win-register/Tashan',
+                isHot: true
+            },
+            'Jalwa Hack': {
+                logo: 'jalwa.png',
+                registerLink: 'https://elite12345ywywywy.github.io/Ok-win-register/Jalwa',
+                isHot: true
+            },
+             'Sikkim Hack': {
+                logo: 'sikkim.png',
+                registerLink: 'https://elite12345ywywywy.github.io/Sikkim/',
+                isHot: true
+            },
+        };
+
+        // Function to open URL in external browser
+        function openInBrowser(url) {
+            window.open(url, '_system');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const gameSelectorBtn = document.getElementById('gameSelectorBtn');
+            const gameSelectorDropdown = document.getElementById('gameSelectorDropdown');
+            const gameOptions = document.getElementById('gameOptions');
+            const gameSearch = document.getElementById('gameSearch');
+            const selectedGameName = document.getElementById('selectedGameName');
+            const selectedGameLogo = document.getElementById('selectedGameLogo');
+            const dynamicGameName = document.getElementById('dynamicGameName');
+            const gameLogo = document.getElementById('gameLogo');
+            const logoHotTag = document.getElementById('logoHotTag');
+            const gameSubtitle = document.getElementById('gameSubtitle');
+            const registerBtn = document.getElementById('registerBtn');
+            const registerText = document.getElementById('registerText');
+            const onlineUsers = document.getElementById('onlineUsers');
+            const hackerMessages = document.getElementById('hackerMessages');
+            const reviewsContainer = document.getElementById('reviewsContainer');
+            
+            // Create game options
+            Object.keys(gameData).forEach(gameName => {
+                const gameOption = document.createElement('div');
+                gameOption.className = 'game-option';
+                
+                // Add hot tag if applicable
+                let hotTag = '';
+                if (gameData[gameName].isHot) {
+                    hotTag = '<div class="hot-tag"><i class="fas fa-fire"></i> HOT</div>';
+                }
+                
+                gameOption.innerHTML = `
+                    <img src="${gameData[gameName].logo || 'default-logo.png'}" alt="${gameName} Logo">
+                    <span>${gameName}</span>
+                    <img class="aviator-icon" src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ffb347'><path d='M22 16.21v-1.895L14 8V4a2 2 0 0 0-4 0v4l-8 6.315v1.895l8-2.526V18l-2 2v2l3.5-1 3.5 1v-2l-2-2v-4.316l8 2.526z'/></svg>" alt="Aviator">
+                    ${hotTag}
+                `;
+                gameOption.addEventListener('click', () => {
+                    selectGame(gameName);
+                });
+                gameOptions.appendChild(gameOption);
+            });
+            
+            // Toggle dropdown
+            gameSelectorBtn.addEventListener('click', () => {
+                gameSelectorDropdown.classList.toggle('show');
+                if (gameSelectorDropdown.classList.contains('show')) {
+                    gameSearch.focus();
+                }
+            });
+            
+            // Search functionality
+            gameSearch.addEventListener('input', () => {
+                const searchTerm = gameSearch.value.toLowerCase();
+                const options = gameOptions.querySelectorAll('.game-option');
+                
+                options.forEach(option => {
+                    const gameName = option.querySelector('span').textContent.toLowerCase();
+                    if (gameName.includes(searchTerm)) {
+                        option.style.display = 'flex';
+                    } else {
+                        option.style.display = 'none';
+                    }
+                });
+            });
+            
+            // Close dropdown when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!gameSelectorBtn.contains(e.target) && !gameSelectorDropdown.contains(e.target)) {
+                    gameSelectorDropdown.classList.remove('show');
+                }
+            });
+            
+            // Select game function
+            function selectGame(gameName) {
+                selectedGameName.textContent = gameName;
+                selectedGameLogo.src = gameData[gameName].logo || 'default-logo.png';
+                gameSelectorDropdown.classList.remove('show');
+                
+                // Save to localStorage
+                localStorage.setItem('selectedGame', gameName);
+                updateGameInterface(gameName);
+            }
+            
+            function updateGameInterface(gameName) {
+                // Update the tool name
+                dynamicGameName.textContent = gameName.toUpperCase();
+                
+                // Update the game logo
+                const gameInfo = gameData[gameName] || {};
+                gameLogo.src = gameInfo.logo || 'default-logo.png';
+                gameLogo.alt = `${gameName} Logo`;
+                
+                // Show or hide hot tag on logo
+                if (gameInfo.isHot) {
+                    logoHotTag.style.display = 'flex';
+                } else {
+                    logoHotTag.style.display = 'none';
+                }
+                
+                // Update the subtitle
+                const gameShortName = gameName.replace(' Hack', '');
+                gameSubtitle.textContent = `${gameShortName} Chicken Road Mod* Earn Daily 💰`;
+                
+                // Update the register link
+                if (gameInfo.registerLink) {
+                    registerBtn.href = gameInfo.registerLink;
+                    registerBtn.onclick = (e) => {
+                        e.preventDefault();
+                        openInBrowser(gameInfo.registerLink);
+                    };
+                }
+                
+                // Update register button text with game name
+                registerText.textContent = `REGISTER ${gameShortName.toUpperCase()}`;
+                
+                // Update the title tag
+                document.title = gameName.toUpperCase();
+            }
+            
+            // Set Jalwq as default
+            selectGame('Jalwa Hack');
+            
+            // Check localStorage for saved game
+            const savedGame = localStorage.getItem('selectedGame');
+            if (savedGame) {
+                selectGame(savedGame);
+            }
+
+            // Create Diwali effects
+            function createDiwaliEffects() {
+                const background = document.getElementById('diwaliBackground');
+                
+                // Create fireworks
+                for (let i = 0; i < 20; i++) {
+                    const firework = document.createElement('div');
+                    firework.classList.add('firework');
+                    firework.style.left = `${Math.random() * 100}%`;
+                    firework.style.animationDelay = `${Math.random() * 5}s`;
+                    firework.style.backgroundColor = getRandomDiwaliColor();
+                    background.appendChild(firework);
+                }
+            }
+            
+            function getRandomDiwaliColor() {
+                const colors = [
+                    '#ffb347', '#ff6b35', '#c44569', 
+                    '#2ecc71', '#3498db', '#9b59b6', '#f1c40f'
+                ];
+                return colors[Math.floor(Math.random() * colors.length)];
+            }
+            
+            createDiwaliEffects();
+            
+            // User Counter
+            function updateUserCounter() {
+                const minUsers = 8000;
+                const maxUsers = 25000;
+                const randomChange = Math.floor(Math.random() * 500) - 250;
+                
+                let currentUsers = parseInt(onlineUsers.textContent.replace(/,/g, ''));
+                currentUsers += randomChange;
+                
+                currentUsers = Math.max(minUsers, Math.min(maxUsers, currentUsers));
+                onlineUsers.textContent = currentUsers.toLocaleString();
+                
+                setTimeout(updateUserCounter, 2000 + Math.random() * 2000);
+            }
+            
+            updateUserCounter();
+
+            // Reviews Section
+            function generateReviews() {
+                const reviews = [];
+                
+                for (let i = 0; i < 5; i++) {
+                    const userNumber1 = Math.floor(Math.random() * 200) + 700;
+                    const userNumber2 = Math.floor(Math.random() * 200) + 700;
+                    const earnedAmount = Math.floor(Math.random() * 45000) + 5000;
+                    
+                    reviews.push(`User ${userNumber1}****${userNumber2} Earned ${earnedAmount.toLocaleString()}₹`);
+                }
+                
+                return reviews;
+            }
+            
+            function displayReviews() {
+                const reviews = generateReviews();
+                reviewsContainer.innerHTML = '';
+                
+                reviews.forEach(review => {
+                    const reviewItem = document.createElement('div');
+                    reviewItem.className = 'review-item';
+                    reviewItem.textContent = review;
+                    reviewsContainer.appendChild(reviewItem);
+                });
+            }
+            
+            displayReviews();
+            
+            // Update reviews every 1.5 seconds (faster refresh)
+            setInterval(displayReviews, 1500);
+
+            const predictBtn = document.getElementById('predictBtn');
+            const plane = document.getElementById('plane');
+            const multiplierDisplay = document.getElementById('multiplierDisplay');
+
+            let isAnimating = false;
+
+            function startPrediction() {
+                if (isAnimating) return;
+                isAnimating = true;
+                
+                // Disable button during animation
+                predictBtn.disabled = true;
+                predictBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> PREDICTING...';
+                
+                // Reset positions
+                plane.style.bottom = '15px';
+                plane.style.left = '15px';
+                multiplierDisplay.textContent = '1.00x';
+                
+                // Show hacker messages
+                hackerMessages.classList.add('show');
+                
+                // Generate random multiplier (1.00x - 3.00x)
+                const finalMultiplier = (Math.random() * 2 + 1).toFixed(2);
+                
+                // Start animation after messages complete
+                setTimeout(() => {
+                    // Hide hacker messages
+                    hackerMessages.classList.remove('show');
+                    
+                    const animationDuration = 2000; // 2 seconds
+                    const startTime = Date.now();
+                    
+                    function animate() {
+                        const elapsed = Date.now() - startTime;
+                        const progress = Math.min(elapsed / animationDuration, 1);
+                        
+                        // Calculate current multiplier
+                        const currentMultiplier = (1 + (finalMultiplier - 1) * Math.pow(progress, 0.7)).toFixed(2);
+                        multiplierDisplay.textContent = `${currentMultiplier}x`;
+                        
+                        // Move plane diagonally (constrained)
+                        const maxRight = window.innerWidth * 0.7 - 50;
+                        const maxTop = 150;
+                        
+                        plane.style.left = `${15 + (progress * maxRight)}px`;
+                        plane.style.bottom = `${15 + (progress * maxTop)}px`;
+                        
+                        // Plane glow effect
+                        plane.style.animation = 'planeGlow 0.5s infinite';
+                        
+                        if (progress < 1) {
+                            requestAnimationFrame(animate);
+                        } else {
+                            // Animation complete
+                            plane.style.animation = 'none';
+                            
+                            // Enable button after 4 seconds total
+                            setTimeout(() => {
+                                predictBtn.disabled = false;
+                                predictBtn.innerHTML = '<i class="fas fa-rocket"></i> START PREDICTION';
+                                isAnimating = false;
+                            }, 2000);
+                        }
+                    }
+                    
+                    requestAnimationFrame(animate);
+                }, 5000); // Wait for all messages to display
+            }
+
+            predictBtn.addEventListener('click', startPrediction);
+
+            // Terminal effect - random commands
+            const commands = [
+                "INITIALIZING_PREDICTION_ENGINE",
+                "CONNECTING_TO_SERVER",
+                "ANALYZING_FLIGHT_PATTERNS",
+                "CALCULATING_PROBABILITIES",
+                "OPTIMIZING_ALGORITHM",
+                "NEW YEAR! SYSTEM_READY"
+            ];
+            
+            let commandIndex = 0;
+            setInterval(() => {
+                const terminal = document.querySelector('.terminal-line');
+                terminal.textContent = `>_ ${commands[commandIndex]}`;
+                commandIndex = (commandIndex + 1) % commands.length;
+            }, 3000);
+        });
+    </script>
+<!-- Cloudflare Pages Analytics --><script defer src='../../static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "786ef7333701443985205d7238c95241"}'></script><!-- Cloudflare Pages Analytics --></body>
+
+<!-- Mirrored from cortexpanels.site/Elite/14.html by HTTrack Website Copier/3.x [XR&CO'2017], Tue, 06 Jan 2026 20:47:47 GMT -->
+</html>
